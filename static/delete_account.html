@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account</title>
+</head>
+<body>
+    <h2>Delete Account</h2>
+    <form id="deleteAccountForm">
+        Email: <input type="email" id="Email"><br>
+        Password: <input type="password" id="Password"><br>
+        <button type="button" onclick="deleteAccount()">Delete Account</button>
+    </form>
+    <p id="deleteMessage"></p>
+    <a href="login.html">Back to Login</a>
+
+    <script>
+        async function deleteAccount() {
+            const email = document.getElementById('Email').value;
+            const password = document.getElementById('Password').value;
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
+    
+            const response = await fetch('/Delete_account', {
+                method: 'DELETE',
+                body: formData  // FormData is used here
+            });
+            const data = await response.json();
+            document.getElementById('createMessage').innerText = data.message;
+        }
+    </script> 
+</body>
+</html>

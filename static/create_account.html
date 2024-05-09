@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+</head>
+<body>
+    <h2>Create Account</h2>
+    <form id="createAccountForm">
+        Email: <input type="email" id="newEmail"><br>
+        Password: <input type="password" id="newPassword"><br>
+        <button type="button" onclick="addNewUser()">Create Account</button>
+    </form>
+    <p id="createMessage"></p>
+    <a href="login.html">Back to Login</a>
+
+    <script>
+        async function addNewUser() {
+            const email = document.getElementById('newEmail').value;
+            const password = document.getElementById('newPassword').value;
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
+    
+            const response = await fetch('/Add_account', {
+                method: 'POST',
+                body: formData  // FormData is used here
+            });
+            const data = await response.json();
+            document.getElementById('createMessage').innerText = data.message;
+        }
+    </script>    
+    
+</body>
+</html>
