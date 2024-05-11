@@ -25,7 +25,7 @@ def check_credentials(email, password, hash_password=hash_password, col = col):
     else:
         data= col.find_one( {"email": email} )
         if data["hashed_password"] == hashed_password:
-             return "Login Succesful"
+             return "VERIFY OTP"
         else:
             return "Incorrect Password"
 

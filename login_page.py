@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from utils import *
 from fastapi import FastAPI, Form
 app = FastAPI()
+OTP_global = 000000
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
@@ -12,9 +13,18 @@ async def homepage():
 
 
 @app.get("/Check_Login")
-def check_credentials_api(email: str, password: str):
+def check_credentials_api(email: str, password: str, OTP_global= OTP_global):
     result = check_credentials(email, password)
+    if result == "VERIFY OTP":
+        OTP_global = otp(email)
     return {"message": result}
+
+@app.get("/Verify_OTP")
+def verify_otp_api(otp, OTP_global= OTP_global):
+    if otp == OTP_global:
+        return "Verified"
+    else:
+        return "OTP does not match"
 
 @app.post("/Add_account")
 def add_new_user_api(email: str = Form(...), password: str = Form(...)):
