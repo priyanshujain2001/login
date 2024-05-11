@@ -1,8 +1,9 @@
-import json
+import math, random
 import hashlib
 import pymongo
 import os
 from dotenv import load_dotenv
+from gmail_services.f_send_Email import f_send_Email
 load_dotenv()
 mongo_url = os.getenv("mongodb_connection_string")
 def mongo_db_collection(mongourl = mongo_url):
@@ -10,6 +11,8 @@ def mongo_db_collection(mongourl = mongo_url):
     mydb = myclient["Users_data"]
     mycol = mydb["Login_info2"]
     return mycol
+
+
 
 col = mongo_db_collection()
 def hash_password(password):
@@ -69,3 +72,22 @@ def update_password(email, old_password, new_password,  hash_password=hash_passw
             return "Account Password Updated"
         else:
             return "Incorrect Password"
+        
+        
+
+
+def otp(to):
+    digits = "0123456789"
+    OTP= ""
+    for i in range(6) :
+        OTP += digits[math.floor(random.random() * 10)]
+    mail_body = f'OTP to enter the application is {OTP}'
+    f_send_Email(to,"OTP to enter the application", mail_body)
+    return OTP
+        
+        
+def check_otp(email, user_otp):
+    OTP = otp(email)
+    return OTP == int(user_otp)
+    
+
