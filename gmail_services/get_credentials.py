@@ -10,8 +10,8 @@ secret_json_file = os.getenv("secret_json_file")
 SCOPES = ['https://www.googleapis.com/auth/gmail.send','https://www.googleapis.com/auth/gmail.addons.current.action.compose',"https://www.googleapis.com/auth/gmail.addons.current.message.action","https://www.googleapis.com/auth/gmail.compose","https://www.googleapis.com/auth/gmail.modify", "https://mail.google.com/"]
 def get_credentials(SCOPES = SCOPES, secret_json_file =  secret_json_file):
     creds = None
-    if os.path.exists('gmail_sevices\\token.pickle'):
-        with open('gmail_sevices\\token.pickle', 'rb') as token:
+    if os.path.exists('gmail_services\\token.pickle'):
+        with open('gmail_services\\token.pickle', 'rb') as token:
             creds = pickle.load(token)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:

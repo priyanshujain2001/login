@@ -85,9 +85,5 @@ def otp(to):
     f_send_Email(to,"OTP to enter the application", mail_body)
     return OTP
         
-        
-def check_otp(email, user_otp):
-    OTP = otp(email)
-    return OTP == int(user_otp)
     
 

@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0; /* Remove default margin */
+            flex-direction: column; /* Stack vertically */
+        }
+        form {
+            margin: 10px;
+            text-align: center; /* Center form contents */
+        }
+        input {
+            margin: 5px; /* Space out inputs */
+        }
+    </style>
 </head>
 <body>
     <h2>Create Account</h2>
@@ -11,6 +28,11 @@
         Email: <input type="email" id="newEmail"><br>
         Password: <input type="password" id="newPassword"><br>
         <button type="button" onclick="addNewUser()">Create Account</button>
+    </form>
+    <p id="VerifyOTP"></p>
+    <form id="verifyotp">
+        OTP: <input type="email" id="otp"><br>
+        <button type="button" onclick="verifyotp()">verify</button>
     </form>
     <p id="createMessage"></p>
     <a href="login.html">Back to Login</a>
@@ -30,7 +52,15 @@
             const data = await response.json();
             document.getElementById('createMessage').innerText = data.message;
         }
-    </script>    
+    </script>   
+    <script>
+        async function verifyotp() {
+            const otp = document.getElementById('otp').value;
+            const response = await fetch('/Verify_OTP?otp=' + otp);
+            const data = await response.json();
+            document.getElementById('loginMessage').innerText = data.message;
+        }
+    </script> 
     
 </body>
 </html>
